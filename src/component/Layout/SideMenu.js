@@ -6,17 +6,15 @@ import {
   DashboardOutlined,
   TeamOutlined,
 } from '@ant-design/icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
-
   const onCollapse = (collapsed) => setCollapsed(collapsed);
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme= "light">
+    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme= "light" className='site-menu'>
       <div className="logo" />
       <Menu
         theme="light"

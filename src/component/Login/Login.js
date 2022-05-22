@@ -1,27 +1,81 @@
-import React from 'react'
-import { Input, Checkbox, Button } from 'antd';
-import { UserOutlined, KeyOutlined } from '@ant-design/icons';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { Input, Checkbox, Button, Form, message } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.css'
+import { loginUser } from '../../api/AuthAPI';
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const error = useSelector((state) => state.auth.login?.error)
+  useEffect(() => {
+    if (error) {
+      message.error(error.message);
+    }
+  }, [error])
+  const onFinish = (values) => {
+    const user_login = {
+      email: values.email,
+      password: values.password
+
+    }
+    loginUser(user_login, dispatch, navigate)
+  }
   return (
     <div className='login'>
       <div className='container-login'>
         <div className='title-login'>Welcome to Solar Admin System</div>
-        <div className='box-input'>
-          <div className='item-input'>
-            <Input className='input' size="large" placeholder="Username" prefix={<UserOutlined />} />
-          </div>
-          <div className='item-input'>
-            <Input className='input' size="large" placeholder="Username" prefix={<KeyOutlined />} />
-          </div>
-        </div>
-        <div className='box-info'>
-          <Checkbox className='checkbox'>Keep me logged in</Checkbox>
-          <label>Forgot pass word</label>
-        </div>
-        <div className='box-login'>
-          <Button type="primary" style={{width:'160px', height:'45px', borderRadius:'15px', fontSize:'20px'}}>Login</Button>
-        </div>
+        <Form
+          name="normal_login"
+          className="login-form"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+        >
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Email!',
+              },
+            ]}
+          >
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Password!',
+              },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <a className="login-form-forgot" href="">
+              Forgot password
+            </a>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-form-button" >
+              Log in
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   )

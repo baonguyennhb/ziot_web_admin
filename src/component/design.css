@@ -1,0 +1,19 @@
+.title-page {
+    font-size: 25px;
+    font-weight: 600;
+}
+.title-page-children {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 40px;
+}
+.insert {
+    margin:15px 0px;
+}
+.insert .btn-insert {
+    font-size: 18px;
+    height: 40px;
+}
+.container-table {
+    margin-top: 15px;
+}

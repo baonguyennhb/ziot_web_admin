@@ -1,8 +1,16 @@
 import React from 'react'
-
+import { FolderAddOutlined } from '@ant-design/icons'
+import './design.css'
 const Device = () => {
   return (
-    <div>IOT 2040 management</div>
+    <div>
+      <div className='header-page'>
+        <div className='title-page'>Device management</div>
+        <div className='insert'>
+          <FolderAddOutlined />
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -9,40 +9,34 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+
 .login .container-login {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 300px;
+    top: 50px;
 }
+
 .login .container-login .title-login {
-    font-size: 40px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 650;
     color: white;
+    margin-bottom: 20px;
 }
-.login .container-login .box-input {
-    margin-top: 10px;
+
+.login-form {
+    width: 270px;
 }
-.login .container-login .box-info {
-    margin-top: 10px;
-    color: white;
-    font-size: 20px;
+
+.login-form-forgot {
+    float: right;
 }
-.login .container-login .box-info label a{
-    color: white;
+
+.ant-col-rtl .login-form-forgot {
+    float: left;
 }
-.login .container-login .box-info .checkbox {
-    color: white!important;
-    font-size: 20px !important;
-    margin-right: 30px;
-}
-.login .container-login .box-login {
-    margin-top: 15px;
-}
-.input {
-    margin-top: 20px;
-    width: 300px !important;
-    height: 55px !important;
-    border-radius: 20px !important;
+
+.login-form-button {
+    width: 100%;
 }

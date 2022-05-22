@@ -1,0 +1,16 @@
+.form-user {
+    width: 400px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+.btn-reset {
+    float: right;
+    width: 45%;
+    background: rgb(151, 151, 151);
+}
+.btn-reset:hover {
+    background: rgb(199, 198, 198);
+}
+.btn-submit {
+    width: 45%;
+}
