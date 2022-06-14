@@ -1,5 +1,7 @@
 import * as types from './constants'
 import axios from 'axios'
+
+const base_URL = 'http://13.213.68.19:5001'
 const loginStart = () => ({
     type: types.LOGIN_START,
 })
@@ -18,12 +20,12 @@ export const loginInitiate = (email, password) => {
     return function(dispatch) {
         dispatch(loginStart())
         axios
-            .post("http://localhost:5001/admin/user/login", {
+            .post(`${base_URL}/admin/user/login`, {
                 email,
                 password
             })
             .then((response) => {
-                console.log("response ", response)
+                localStorage.setItem("token",(response.data.token))
                 dispatch(loginSuccess(response.data.token))
             })
             .catch((error) => dispatch(loginFail(error.response.data.message)))

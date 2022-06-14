@@ -14,14 +14,14 @@ const Login = () => {
   console.log(user)
   useEffect(() => {
     if (error) {
-      message.error(error.message);
+      message.error(error);
     }
   }, [error])
-  // useEffect(() => {
-  //   if(user) {
-  //     navigate('/user')
-  //   }
-  // },[user])
+  useEffect(() => {
+    if(user) {
+      navigate('/user')
+    }
+  },[user])
   const onFinish = (values) => {
     let email = values.email
     let password = values.password

@@ -4,14 +4,8 @@ import storage from "redux-persist/lib/storage";
 
 import authReducer from "../features/Auth/redux/reducer";
 
-const persistConfig = {
-    key: "root",
-    storage,
-    whitelist: ["auth"]
-}
-
 const rootReducer = combineReducers({
     auth: authReducer
 })
 
-export default persistReducer(persistConfig, rootReducer)
+export default rootReducer

@@ -1,4 +1,5 @@
 import {createStore, applyMiddleware} from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { persistStore } from 'redux-persist';
 import rootReducer from './rootReducer';
@@ -23,6 +24,5 @@ if (process.env.NODE_ENV === 'development') {
     }
 }
 
-export const store = createStore(rootReducer, applyMiddleware(...middlewares))
-export const  persistor = persistStore(store)
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middlewares)))
 
