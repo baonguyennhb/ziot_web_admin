@@ -5,22 +5,33 @@ import { Input, Checkbox, Button, Form, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.css'
 import { loginUser } from '../../api/AuthAPI';
+import { loginInitiate } from '../../features/Auth/redux/action';
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const error = useSelector((state) => state.auth.login?.error)
+  //const error = useSelector((state) => state.auth.login?.error)
+  const {user, error} = useSelector((state) => state.auth)
+  console.log(user)
   useEffect(() => {
     if (error) {
       message.error(error.message);
     }
   }, [error])
+  // useEffect(() => {
+  //   if(user) {
+  //     navigate('/user')
+  //   }
+  // },[user])
   const onFinish = (values) => {
-    const user_login = {
-      email: values.email,
-      password: values.password
+    let email = values.email
+    let password = values.password
+    // const user_login = {
+    //   email: values.email,
+    //   password: values.password
 
-    }
-    loginUser(user_login, dispatch, navigate)
+    // }
+    //loginUser(user_login, dispatch, navigate)
+    dispatch(loginInitiate(email, password))
   }
   return (
     <div className='login'>
