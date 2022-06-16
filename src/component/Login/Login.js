@@ -1,27 +1,30 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Input, Checkbox, Button, Form, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.css'
-import { loginUser } from '../../api/AuthAPI';
-import { loginInitiate } from '../../features/Auth/redux/action';
+import { login } from '../../features/Auth/redux/actions';
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   //const error = useSelector((state) => state.auth.login?.error)
-  const {user, error} = useSelector((state) => state.auth)
-  console.log(user)
-  useEffect(() => {
-    if (error) {
-      message.error(error);
-    }
-  }, [error])
-  useEffect(() => {
-    if(user) {
-      navigate('/user')
-    }
-  },[user])
+  const { user, error } = useSelector((state) => state.auth)
+  const auth = JSON.parse(localStorage.getItem("auth"))
+  // useEffect(() => {
+  //   if (auth?.code == 200) {
+  //     navigate('/user')
+  //   }
+  // },[])
+  
+  // useEffect(() => {
+  //   if (error) {
+  //     message.error(error);
+  //   }
+  // },[])
+  // if (user) {
+  //   navigate('/user')
+  // }
   const onFinish = (values) => {
     let email = values.email
     let password = values.password
@@ -31,7 +34,7 @@ const Login = () => {
 
     // }
     //loginUser(user_login, dispatch, navigate)
-    dispatch(loginInitiate(email, password))
+    dispatch(login({email, password}, navigate()))
   }
   return (
     <div className='login'>

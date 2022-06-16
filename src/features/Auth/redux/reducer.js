@@ -1,33 +1,63 @@
-import * as types from './constants'
-const initialState = {
-    user: null,
-    loading: false,
-    error: null
-}
+import initialState from "./initialState";
+import {
+    SET_TOKEN_ACTION, CLEAR_TOKEN_ACTION, ARG_TOKEN, LOGIN_LOADING
+} from "./constants";
 
-const authReducer = (state = initialState, action) => {
+export function reducer(state = initialState, action) {
+    const stateLocal = loadStateFromLocal();
     switch (action.type) {
-        case types.LOGIN_START:
+        case LOGIN_LOADING:
             return {
-                ...state,
-                loading: true
-            }
-        case types.LOGIN_SUCCESS:
+                ...state, login: {
+                    ...state.login, loading: true
+                }
+            };
+        case SET_TOKEN_ACTION:
+        case CLEAR_TOKEN_ACTION:
             return {
-                ...state,
-                loading: false,
-                user: action.payload
-            }
-        case types.LOGIN_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-
+                ...state, ...stateLocal, login: {
+                    loading: false
+                }
+            };
         default:
-            return state
+            return {
+                ...state, ...stateLocal,
+            };
     }
 }
 
-export default authReducer
+export function loadStateFromLocal() {
+    let stateFromLocal;
+    try {
+        // Load data from local
+        let dataLocal = JSON.parse(localStorage.getItem(ARG_TOKEN));
+
+        // Load data auth
+        const {data, token} = dataLocal
+
+        stateFromLocal = {
+            user   : {
+                id   : data._id,
+                name : data.name,
+                email: data.email,
+            },
+            meta: {
+                token: token
+            },
+            role: data.role
+        }
+
+    } catch (e) {
+        localStorage.removeItem(ARG_TOKEN)
+        stateFromLocal = {
+            user   : {
+                ...initialState.user
+            },
+            meta: {
+                ...initialState.meta
+            },
+            role: initialState.role
+        }
+    }
+    return stateFromLocal;
+}
